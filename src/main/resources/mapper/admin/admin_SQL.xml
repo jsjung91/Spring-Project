@@ -96,7 +96,34 @@
 </select>
 
 <select id="adminMemberlist" parameterType="jeong.login.MemberDetail" resultType="jeong.login.MemberDetail">
-	
+	SELECT
+		A.MEMBER_NO AS MEMBER_NO,
+		A.MEMBER_ID AS MEMBER_ID,
+		'시크릿' AS MEMBER_PWD,
+		A.MEMBER_ROLE AS MEMBER_ROLE,
+		A.MEMBER_NAME AS MEMBER_NAME,
+		A.MEMBER_MAIL AS MEMBER_MAIL,
+		A.MEMBER_PHON AS MEMBER_PHON
+	FROM
+		USER_INFO A
+	WHERE 1=1
+		<if test="member_id != null">
+			AND MEMBER_ID = ${ member_id}
+		</if>
+		<if test="member_role != null">
+			AND MEMBER_ROLE = ${member_role}
+		</if>
+		<if test="member_name != null">
+			AND MEMBER_NAME = ${member_name}
+		</if>
+		<if test="member_mail != null">
+			AND MEMBER_MAIL = ${member_mail}
+		</if>		
+		<if test="member_phon != null">
+			AND MEMBER_PHON = ${member_phon}
+		</if>
+		AND A.DEL_YN = 'N'
+	ORDER BY MEMBER_NO ASC
 </select>
 
 </mapper>

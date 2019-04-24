@@ -74,4 +74,5 @@
 	}
 </script>
 <script src="<c:url value='/resources/js/common/menu.js'/>" charset="utf-8"></script>
+<script src="<c:url value='/resources/js/common.js'/>" charset="utf-8"></script>
 </header> 
