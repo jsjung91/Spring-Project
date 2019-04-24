@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="login">
+
+	<select id="check_MemberId" parameterType="String" resultType="jeong.login.MemberDetail">
+		<![CDATA[
+		select
+			A.MEMBER_NO as member_no,
+        	A.MEMBER_ID as member_id,
+        	A.MEMBER_PWD as member_pwd,
+        	A.MEMBER_ROLE as member_role,
+        	A.MEMBER_NAME as member_name,
+        	A.MEMBER_MAIL as member_mail
+    	FROM
+	        USER_INFO A 
+    	 WHERE 1=1 
+        	AND A.MEMBER_ID = #{member_id}
+        	AND A.DEL_YN = 'N'
+    	]]>
+	</select>
+
+
+	<select id="check_MemberIdCnt" parameterType="String" resultType="java.lang.Integer">
+        <![CDATA[
+            SELECT             
+            	COUNT(*) AS MEMBER_ID
+			FROM
+            	USER_INFO A 
+            WHERE 1=1  
+            	AND A.MEMBER_ID = #{member_id}
+        ]]>
+    </select>
+
+	<update id="updateFailureCount">
+		<![CDATA[
+			UPDATE
+				USER_INFO A
+			SET
+				FAILURE_CNT = FAILURE_CNT + 1
+			WHERE
+				A.MEMBER_ID = #{member_id}
+		]]>
+	</update>
+
+	<select id="checkFailureCount" resultType="java.lang.Integer">
+		<![CDATA[
+			SELECT
+				FAILURE_CNT
+			FROM
+				USER_INFO
+			WHERE
+				MEMBER_ID = #{member_id}
+		]]>
+	</select>
+	
+	<update id="updateUnenabled">
+		<![CDATA[
+			UPDATE
+				USER_INFO
+			SET
+				ENABLED = false
+			WHERE
+				MEMBER_ID = #{member_id}
+		]]>
+	</update>
+	
+	<update id="updateFailureCountReset">
+
+		<![CDATA[
+
+			UPDATE
+				USER_INFO
+			SET
+				FAILURE_CNT = 0
+			WHERE
+				ID = #{ loginId}
+		]]>
+	</update>
+	
+	<update id="updateAccessDate">
+	
+	</update>
+</mapper>

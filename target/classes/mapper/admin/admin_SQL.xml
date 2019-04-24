@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="admin">
+
+<insert id="memberInsert" parameterType="jeong.member.MemberVo">
+	<![CDATA[
+		insert into user_info
+		(
+			member_no,
+			member_id,
+			member_pwd,
+			member_role,
+			member_name,
+			member_mail,
+			member_phon,
+			del_yn,
+			ENABLED,
+			reg_date
+		) values (
+			#{member_no},
+			#{member_id},
+			#{member_pwd},
+			#{member_role},
+			#{member_name},
+			#{member_mail},
+			#{member_phon},
+			'N',
+			'1',
+			now()
+		)
+	]]>
+</insert>
+
+<insert id="memberDetailInsert" parameterType="jeong.member.MemberVo">
+	<![CDATA[
+		INSERT INTO USER_INFO_DETAIL
+		
+	]]>
+</insert>
+
+<update id="memberUpdate" parameterType="jeong.member.MemberVo">
+	update
+		user_info
+	set
+		member_pwd = #{member_pwd},
+		member_role = #{member_role},
+		member_mail = #{member_mail}
+	where 
+		member_no = #{member_no}
+</update>
+
+<select id="authManagerList" parameterType="jeong.admin.AdminVo" resultType="jeong.admin.AdminVo">
+	SELECT 
+			A.CODE AS CODE,
+	        B.DETAIL_NO AS DETAIL_NO,
+	        A.CODE_NAME AS CODE_NAME,
+	        B.VAR_CODE AS VAR_CODE,
+	       	B.VAR_NAME AS VAR_NAME
+  		FROM COMMON_CODE A, COMMON_CODE_DETAIL B
+ 			WHERE A.CODE = B.CODE AND A.CODE = 1 AND A.USE_YN = 'Y'
+</select>
+
+<select id="menuManagerList" parameterType="jeong.menu.MenuVo" resultType="jeong.menu.MenuVo">
+	<![CDATA[
+        	SELECT   
+        			  NO,
+					  DEPTH_1,
+					  DEPTH_2,
+					  DEPTH_3,
+					  MENU_ID,
+					  MENU_NAME,
+					  MENU_URL,
+					  SORT,
+					  USE_YN,
+					  ADMIN_YN
+				FROM(
+     		   SELECT 
+     		          NO,
+					  DEPTH_1,
+					  DEPTH_2,
+					  DEPTH_3,
+					  MENU_ID,
+					  MENU_NAME,
+					  MENU_URL,
+					  SORT,
+					  USE_YN,
+					  ADMIN_YN
+				FROM ROLE_MENU
+				WHERE 1=1
+				  AND USE_YN = 'Y'
+				  AND ADMIN_YN = 'N'
+				) A
+				 ORDER BY SORT ASC
+        ]]>
+</select>
+
+<select id="adminMemberlist" parameterType="jeong.login.MemberDetail" resultType="jeong.login.MemberDetail">
+	
+</select>
+
+</mapper>

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="menu">
+	<select id="roleMenu" parameterType="jeong.menu.MenuVo" resultType="jeong.menu.MenuVo">
+		SELECT 
+			A.DEPTH_1,
+			A.DEPTH_2,
+			A.DEPTH_3,
+			A.MENU_ID,
+			A.MENU_NAME,
+			A.MENU_URL,	
+			A.SORT,
+			A.USE_YN,
+			A.ADMIN_YN,
+			D.READ_GRANT,
+			D.WRITE_GRANT,
+			D.DELETE_GRANT
+		FROM 
+			ROLE_MENU A, 
+		( SELECT
+			C.MENU_NO,
+			C.MENU_ID,
+			C.MENU_NAME,
+			C.READ_GRANT,
+			C.WRITE_GRANT,
+			C.DELETE_GRANT
+		FROM 
+			ROLE_GROUP C
+		WHERE 1 = 1
+			AND ROLE_CHAR = (SELECT MEMBER_ROLE
+		FROM 
+			USER_INFO B
+		WHERE 1 = 1
+			AND B.MEMBER_ID = #{login_id}
+			AND B.DEL_YN = 'N')
+			) D
+		WHERE 1 = 1
+			AND A.USE_YN = 'Y'
+			AND A.ADMIN_YN = #{admin_yn}
+			AND A.MENU_ID = D.MENU_ID
+		ORDER BY SORT ASC
+	</select>
+	
+	<select id="getMenuList" parameterType="jeong.menu.Menu" resultType="jeong.menu.Menu">
+		SELECT
+			M_ID,
+			CODE,
+			CODE_NAME,
+			SORT_NUM,
+			COMMENT,
+			MENU_URL
+		FROM
+			TB_MENU
+		ORDER BY SORT_NUM DESC				
+	</select>
+	
+	<insert id="insertMenu" parameterType="jeong.menu.Menu">
+		INSERT INTO TB_MENU
+			(
+			code,
+			code_name,
+			sort_num,
+			comment,
+			menu_url,
+			reg_id,
+			reg_date
+			)
+		VALUES
+			(
+			#{code},
+			#{code_name},
+			#{sort_num},
+			#{comment},
+			#{menu_url},
+			#{reg_id},
+			now()
+			)			
+	</insert>
+	
+	<update id="updateMenu" parameterType="jeong.menu.Menu">
+		UPDATE TB_MENU SET
+			CODE_NAME = #{CODE_NAME},
+			COMMENT = #{COMMENT},
+			SORT_NUM = #{SORT_NUM},
+		WHERE
+			CODE = #{CODE}
+	</update>
+	
+	<delete id="deleteMenu" parameterType="String">
+		DELETE FROM
+			TB_MENU
+		WHERE
+			CODE = #{CODE}
+	</delete> 
+</mapper>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="common">
+
+	<select id="selectFileInfo" parameterType="hashmap" resultType="hashmap">
+		select
+			stored_file_name, 
+			ori_file_name
+		from
+			board_file
+		where 
+			f_idx = #{f_idx}				
+	</select>
+	
+	<select id="selectSeq" parameterType="hashmap" resultType="java.lang.Integer">
+		select
+			seq_no
+		from
+			tb_seq
+		where 1=1
+		and seq_code = #{seq_code}
+	</select>
+	
+	<update id="updateSeq" parameterType="hashmap">
+		update
+			tb_seq
+		set
+			seq_no = seq_no + 1
+		where
+		 	seq_code = #{seq_code}
+	</update>
+</mapper>

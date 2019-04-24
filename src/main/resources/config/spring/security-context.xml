@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+  xmlns:beans="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+           http://www.springframework.org/schema/security
+           http://www.springframework.org/schema/security/spring-security-3.2.xsd">
+    
+    <http pattern="/**/*.js" security="none"/>
+	<http pattern="/**/*.css" security="none"/>
+	<http pattern="/uploadFiles/**" security="none"/>
+	<http pattern="/**/image/**/**" security="none"/>
+	
+	<http auto-config="true" use-expressions="true">
+		
+<!-- 		<intercept-url pattern="/resources/**" access="permitAll"/> -->
+ 		<intercept-url pattern="/board/*.do" access="hasAnyRole('ROLE_USER','ROLE_ADMIN','ROLE_GUEST')"/>
+		<intercept-url pattern="/join/**/*.do" access="permitAll"/>
+ 		<intercept-url pattern="/admin/**/*.do" access="hasAnyRole('ROLE_ADMIN','ROLE_USER')"/>
+		<intercept-url pattern="/join/login.do" access="permitAll"/>
+		<intercept-url pattern="/**" access="hasAnyRole('ROLE_USER','ROLE_ADMIN','ROLE_GUEST')"/>
+<!-- 		<intercept-url pattern="/**" access="permitAll"/> -->
+
+		<form-login 
+			username-parameter="loginid"  
+			password-parameter="loginpwd"		
+			login-page="/join/login.do"
+			default-target-url="/join/loginsuccess.do"
+			authentication-failure-handler-ref="loginFailureHandler"
+			authentication-success-handler-ref="loginSuccessHandler"
+			always-use-default-target="true"
+		/>
+		
+		<access-denied-handler
+			error-page="/access_denied_page"
+		/>
+		<logout invalidate-session="true" logout-success-url="/join/login.do"/>
+		
+		<!-- enable csrf protection -->
+		
+	</http>
+	<beans:bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/> 
+
+	<authentication-manager>
+		<authentication-provider ref="memberAuthenticationProvider"/>
+		<!-- <authentication-provider user-service-ref="memberDetailService"> -->
+			<authentication-provider user-service-ref="memberDetailService">
+         	<password-encoder  ref="bcryptPasswordEncoder" />
+			<!-- <user-service>
+				로그인 사용자 계정 및 권한 지정
+				<user name="admin" password="1234" authorities="ROLE_ADMIN"/>
+				<user name="user" password="0000" authorities="ROLE_USER"/>
+			</user-service>			 -->			
+		</authentication-provider>
+	</authentication-manager>
+
+	<beans:bean id="memberAuthenticationProvider" class="jeong.login.MemberAuthenticationProvider"/>
+	<beans:bean id="memberDetailService" class="jeong.login.MemberDetailService"/>
+	
+	<beans:bean id="loginFailureHandler" class="jeong.common.security.LoginFailureHandler">
+		<beans:property name="loginid" value="loginid"></beans:property>
+		<beans:property name="loginpwd" value="loginpwd"></beans:property>
+		<beans:property name="errormsg" value="errormsgs"></beans:property>
+		<beans:property name="defaultFailureUrl" value="/join/loginfail.do?error"></beans:property>
+	</beans:bean>
+	
+	<beans:bean id="loginSuccessHandler" class="jeong.common.security.LoginSuccessHandler"></beans:bean>
+	<!-- <beans:bean id="loginSuccessHandler" class="jeong.common.security.LoginSuccessHandler">
+		<beans:property name="loginid" value="loginid"/>
+		<beans:property name="defaultUrl" value="/"></beans:property>
+	</beans:bean> -->
+</beans:beans>
