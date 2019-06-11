@@ -8,11 +8,11 @@
 <title>관리자 메인</title>
 <script type="text/javascript">
 
-	var codeset = new codeSet();
+	/* var codeset = new codeSet();
 	codeset.setUrl("<c:url value='/common/selectCommonCode.do' />");
 	codeset.selectBox("1","member_role");
 	codeset.selectBox("2","use_yn");
-	codeset.selectBox("4","member_type");
+	codeset.selectBox("4","member_type"); */
 	
 	var selMemberType;
 	
@@ -23,6 +23,7 @@
 		displaySet("pwdChange","none");
 		
 		$("#btn_new").on("click",function(){
+			alert("신규 등록");
 			$("#formInfo").clearForm();
 			$("#member_id").focus();
 			$("#status").val("insert");
@@ -36,9 +37,7 @@
 			
 		});
 		
-		$("#btn_save").on("click",function(e){
-	
-			
+		$("#btn_save").on("click",function(e){			
 			if(fieldNullCheck("formInfo") == true){
 				if(($("#status").val() == "insert") && !adminMemberIdCheck($("#member_id").val(),"<c:url value='/admin/member/memberIdCheck.do' />")){
 					alert("아이디 있음");
@@ -66,17 +65,12 @@
 // 			e.preventDefault();
 		
 		if($("#status").val() == "update"){
-			if(confirm("삭제하시겠습니까?")){
-				if($("#member_type").val() == "카카오"){
-					alert("카카오사용자는 임의로 삭제할 수 없습니다.");	
-					return false;
-				}else{
+			if(confirm("삭제하시겠습니까?")){				
 					var fmSubmit = new FmSubmit("formInfo");
 					fmSubmit.setUrl("<c:url value='/admin/member/memberDelete.do'/>");
 					fmSubmit.submit();
 				}
 			}
-		}
 		});
 		
 	});
@@ -93,28 +87,30 @@
 		readonlySet("member_id","add");
 		readonlySet("member_name","add");
 		readonlySet("member_pwd","add");
-		
-		
+				
 	 	$.ajax({
 			type: "POST",
-			url : "<c:url value='/admin/member/memberInfoDetails.do' />",
+			url : "<c:url value='/admin/member/memberInfoDetail.do' />",
 			data : sendData,
 			dataType: "json",
 			contentType:"application/json;charset=UTF-8",
 			success : function(data, status, xhr) {
 				var membervo = data.membervo;
-				selMemberType = membervo["member_type"];
-				// 카카오로 가입한 회원의 비밀번호는 수정불가능하다.
-				if(selMemberType == "카카오"){
+				 selMemberType = membervo["member_type"];
+				
+				 // 카카오로 가입한 회원의 비밀번호는 수정불가능하다.
+				/* if(selMemberType == "카카오"){
 					$("#btn_pwdChange").attr("disabled", true);
 				}else{
 					$("#btn_pwdChange").attr("disabled", false);
+				} */ 
+				
+				$("#btn_pwdChange").attr("disabled", false);
+				
+				for(var key in membervo){
+					$("#"+key).val(membervo[key]);		
 				}
 				
-				
-				for( var key in membervo ){
-					$("#"+key).val(membervo[key]);
-				}
 				$("#status").val("update");
 				
 			},
@@ -130,7 +126,6 @@
 <div class="adminInfoMain">
 		
 		<div class="adminInfoList" align="center">
-<!-- 			<ul> -->
 
 			<table class="tb_adminList">
 			    <colgroup>
@@ -150,16 +145,6 @@
 					<c:when test="${fn:length(userlist) > 0 }">
 						<c:forEach var="row" items="${userlist }" varStatus="var">
 							<tr>
-<!-- 								<td> -->
-<%-- 									<c:out value="${row.member_no}"/> --%>
-<!-- 								</td> -->
-<!-- 								<td> -->
-<%-- 									<c:out value="${row.member_id}"/> --%>
-<!-- 								</td> -->
-<!-- 								<td> -->
-<%-- 									<c:out value="${row.member_name}"/> --%>
-<!-- 								</td> -->
-
 								<td>
 									<input type="text" id="id_${var.count }" value ="<c:out value="${row.member_id}"/>" class="codeInfo_input w60 read" readonly="readonly" />
 								</td>
@@ -179,7 +164,6 @@
 				</c:choose>
 				</tbody>
 			 </table>
-<!-- 			 </ul> -->
 		</div>
 		
 		<div name="memberInfoFrame" id ="memberInfoFrame" class="adminInfoFrame">

@@ -95,7 +95,7 @@ public class BoardController {
 		String regid = user.getMember_id();
 		
 		mv.addObject("map", map.get("map")); //게시물 정보
-		mv.addObject("loginId", regid);
+		mv.addObject("loginId", regid); // 사용자 아이디 정보
 		mv.addObject("list", map.get("list")); //게시물 파일 정보
 		
 		return mv;

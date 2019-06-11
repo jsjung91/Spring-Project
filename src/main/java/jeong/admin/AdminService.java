@@ -17,4 +17,6 @@ public interface AdminService {
 	public List<AdminVo> authManagerList() throws Exception;
 	
 	public List<MenuVo> menuManagerList(MenuVo menuvo) throws Exception;
+	
+	public void adminMemberDelete(MemberVo memberVo) throws Exception;
 }

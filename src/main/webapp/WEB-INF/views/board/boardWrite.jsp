@@ -76,15 +76,15 @@
 		});
 		
 		function fn_boardList(){
-			var comSubmit = new ComSubmit();
-			comSubmit.setUrl("<c:url value='/board/boardList.do'/>");
-			comSubmit.submit();
+			var fmSubmit = new FmSubmit();
+			fmSubmit.setUrl("<c:url value='/board/boardList.do'/>");
+			fmSubmit.submit();
 		}
 		
 		function fn_boardInsert(){
-			var comSubmit = new ComSubmit("frm");
-			comSubmit.setUrl("<c:url value='/board/boardInsert.do'/>");
-			comSubmit.submit();
+			var fmSubmit = new FmSubmit("frm");
+			fmSubmit.setUrl("<c:url value='/board/boardInsert.do'/>");
+			fmSubmit.submit();
 		}
 		
 		function fn_fileDelete(obj){

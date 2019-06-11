@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import org.json.simple.JSONObject;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -32,6 +33,12 @@ public class MemberDetail implements UserDetails{
 	
 	private String msg;
 	private Integer code;
+	private String id;
+	
+	private JSONObject properties;
+	
+	private String profile_image;
+	private String nickname;
 	
 	public Integer getMember_no() {
 		return member_no;
@@ -87,6 +94,20 @@ public class MemberDetail implements UserDetails{
 	public void setMember_type(String member_type) {
 		this.member_type = member_type;
 	}
+	public String getProfile_image() {
+		return profile_image;
+	}
+
+	public void setProfile_image(String profile_image) {
+		this.profile_image = profile_image;
+	}
+	public String getNickname() {
+		return nickname;
+	}
+
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
 	public String getDel_yn() {
 		return del_yn;
 	}
@@ -118,6 +139,18 @@ public class MemberDetail implements UserDetails{
 	}
 	public void setCode(Integer code) {
 		this.code = code;
+	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	public JSONObject getProperties() {
+		return properties;
+	}
+	public void setProperties(JSONObject properties) {
+		this.properties = properties;
 	}
 	@Override
 	public String getPassword() {

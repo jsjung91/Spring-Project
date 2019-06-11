@@ -1,13 +1,33 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <header>
-<%@ include file="/WEB-INF/include/include-resource.jsp" %>
+<%@ include file="/WEB-INF/include/include-resource.jsp"%>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#logout_Btn").on("click", function(){
+			var fmSubmit = new FmSubmit("logoutForm");
+			fmSubmit.setUrl("<c:out value = '${contextPath}/j_spring_security_logout'/>");
+			fmSubmit.submit();
+		});
+		
+		$("#info_Btn").on("click", function(){
+			var popUrl = "<c:url value='/main/userInfoPop.do'/>";
+			var popOption = "width=420px, height=295px, resizable=no, location=no, top=300px, left=300px;"
+			window.open(popUrl, "정보확인", popOption);
+		});
+	});
+	
+	function logout() {
+		$("#logout_Btn").trigger("click");
+	}
+</script>
+
 <div class="nav_wrapper"> 
 	<div class="spinner-master">
 		<input type="checkbox" id="spinner-form" />
 		<label for="spinner-form" class="spinner-spin">
-			<div class="spinner diagonal part-1"></div>
-			<div class="spinner horizontal"></div>
-			<div class="spinner diagonal part-2"></div>
+<!-- 			<div class="spinner diagonal part-1"></div> -->
+<!-- 			<div class="spinner horizontal"></div> -->
+<!-- 			<div class="spinner diagonal part-2"></div> -->
 		</label>
 	</div>
 	
@@ -54,25 +74,6 @@
 	</nav>
 </div>       
 <form id="logoutForm" name="logoutForm"></form>
-<script type="text/javascript">
-	$(document).ready(function(){
-		$("#logout_Btn").on("click", function(){
-			var fmSubmit = new FmSubmit("logoutForm");
-			fmSubmit.setUrl("<c:out value = '${contextPath}/j_spring_security_logout'/>");
-			fmSubmit.submit();
-		});
-		
-		$("#info_Btn").on("click", function(){
-			var popUrl = "<c:url value='/main/userInfoPop.do'/>";
-			var popOption = "width=420px, height=295px, resizable=no, location=no, top=300px, left=300px;"
-			window.open(popUrl, "정보확인", popOption);
-		});
-	});
-	
-	function logout() {
-		$("#logout_Btn").trigger("click");
-	}
-</script>
+
 <script src="<c:url value='/resources/js/common/menu.js'/>" charset="utf-8"></script>
-<script src="<c:url value='/resources/js/common.js'/>" charset="utf-8"></script>
 </header> 

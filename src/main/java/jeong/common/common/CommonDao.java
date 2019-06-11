@@ -1,5 +1,6 @@
 package jeong.common.common;
 
+import java.util.List;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -25,5 +26,10 @@ public class CommonDao extends AbstractDao{
 	
 	public void updateSeq(String code) throws Exception{
 	    update("common.updateSeq", code);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Map<String, Object>> selectCommonCode(Map<String, Object> map) throws Exception{
+	    return selectList("common.selectCommonCode", map);
 	}
 }

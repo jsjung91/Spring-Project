@@ -32,10 +32,18 @@ public class AdminDao extends AbstractDao {
 	public void adminMemberInfoUpdate(MemberVo user) throws Exception{
 		update("admin.memberUpdate", user);
     }
+	
+	public void adminMemberDelete(MemberVo user) throws Exception {
+		update("admin.memberDelete", user);
+	}
 
 	public void adminMemberDetailInfoUpdate(MemberVo user) throws Exception{
 		update("admin.memberDetailUpdate", user);
     }
+	
+	public void adminMemberDetailDelete(MemberVo user) throws Exception {
+		update("admin.memberDetailDelete", user);
+	}
 	
 	@SuppressWarnings("unchecked")
 	public List<AdminVo> authManagerList() throws Exception {
@@ -45,5 +53,10 @@ public class AdminDao extends AbstractDao {
 	@SuppressWarnings("unchecked")
 	public List<MenuVo> menuManagerList(MenuVo menu) throws Exception {
 		return selectList("admin.menuManagerList", menu);
+	}
+	
+	// 사용자 no 조회
+	public MemberVo selMemberNo(MemberVo user) throws Exception {
+		return (MemberVo) selectOne("admin.selMemberNo", user);
 	}
 }

@@ -7,6 +7,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import jeong.admin.AdminDao;
+import jeong.member.MemberVo;
 
 @Service("loginService")
 public class LoginServiceImpl implements LoginService{
@@ -28,6 +29,23 @@ public class LoginServiceImpl implements LoginService{
 	@Override
 	public int checkMemberIdCnt(String memberid) throws Exception {
 		return loginDao.checkMemberIdCnt(memberid);
+	}
+	
+	@Override
+	public MemberVo checkKakaoMember(MemberDetail memberDetail) throws Exception {
+		// 카카오 로그인 확인하기
+		MemberVo memberVo = new MemberVo();
+		
+		// 카카오톡 서버에서 받은 사용자 정보 get
+		memberVo.setMember_id(memberDetail.getId());
+		//memberVo.setMember_nick()
+		memberVo.setMember_name(memberDetail.getNickname());
+		memberVo.setDel_yn("N");
+		memberVo.setUse_yn("Y");
+		
+		MemberVo member = adminDao.selMemberNo(memberVo);
+		
+		return member;
 	}
 	
 	@Override

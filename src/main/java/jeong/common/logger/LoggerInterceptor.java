@@ -10,12 +10,14 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
+import jeong.common.common.Globals;
 import jeong.login.MemberDetail;
 
 public class LoggerInterceptor extends HandlerInterceptorAdapter{
 
 	protected Logger log = LoggerFactory.getLogger(this.getClass());
 	
+	private final String KAKAO_JS_API = Globals.KAKAO_JS_API;
 	// client -> controller 로 요청할 때 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) 
@@ -35,7 +37,8 @@ public class LoggerInterceptor extends HandlerInterceptorAdapter{
 							request.setAttribute("user", memberVo);
 							request.setAttribute("menuvo", memberVo.getMenuvo());
 							request.setAttribute("menu", memberVo.getMenu());
-							request.setAttribute("cur_menu_id", request.getParameter("menu_id"));						
+							request.setAttribute("cur_menu_id", request.getParameter("menu_id"));
+							request.setAttribute("kakaoJsApi", KAKAO_JS_API);
 						}
 					}
 				}

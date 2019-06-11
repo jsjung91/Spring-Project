@@ -62,9 +62,15 @@ public class AdminServiceImpl implements AdminService{
 			result = 2;
 		}
 
-		System.out.println("Data : " + result);
+		//System.out.println("Data : " + result);
 
 		return result;
+	}
+	
+	@Override
+	public void adminMemberDelete(MemberVo user) throws Exception {
+		adminDao.adminMemberDetailDelete(user);
+		adminDao.adminMemberDelete(user);
 	}
 	
 	@Override

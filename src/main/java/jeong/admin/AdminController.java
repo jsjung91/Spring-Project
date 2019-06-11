@@ -61,9 +61,9 @@ public class AdminController {
 		
 		MemberDetail user = new MemberDetail();
 		
-		List<MemberDetail> userList = adminService.adminMemberList(user);
+		List<MemberDetail> userlist = adminService.adminMemberList(user);
 		
-		mv.addObject("userList", userList);
+		mv.addObject("userlist", userlist);
 		
 		return mv;
 	}
@@ -82,7 +82,7 @@ public class AdminController {
 	}
 	
 	// 권한 관리 화면, 리스트
-	@RequestMapping(value = "/admin/authManager.do")
+	@RequestMapping(value = "/admin/authManager.do") 
 	public ModelAndView authManager(AdminVo adminVo) throws Exception {
 		ModelAndView mv = new ModelAndView("/admin/auth/authManager");
 		
@@ -108,6 +108,37 @@ public class AdminController {
 		mv.addObject("rdmenu", redirect_menu);
 		mv.addObject("rdmenunum", redirect_menu_name);
 		mv.addObject("menuVo", menuVo);
+		
+		return mv;
+	}
+	
+	// 사용자 정보 업데이트
+	@RequestMapping(value = "/admin/member/memberInfoUpdate.do", method = RequestMethod.POST) 
+	public ModelAndView memberInfoupdate(MemberVo memberVo) throws Exception {
+		int result = adminService.adminMemberInfoUpdate(memberVo);
+		
+		ModelAndView mv = new ModelAndView("redirect:/admin/member/memberInfo.do");
+		
+		mv.addObject("result", result);
+		
+		return mv;
+	}
+	
+	// 사용자 아이디 중복 체크
+	@RequestMapping(value = "/admin/member/memberIdCheck.do", method = RequestMethod.POST)
+	@ResponseBody
+	public int memberIdCtn(@RequestBody String member_id) throws Exception {
+		int result = loginService.checkMemberIdCnt(member_id);
+		
+		return result;
+	}
+	
+	// 사용자 정보 삭제
+	@RequestMapping(value = "/admin/member/memberDelete.do", method = RequestMethod.POST)
+	public ModelAndView memberDelete(MemberVo memberVo) throws Exception {
+		ModelAndView mv = new ModelAndView("redirect:/admin/member/memberInfo.do");
+		
+		adminService.adminMemberDelete(memberVo);
 		
 		return mv;
 	}

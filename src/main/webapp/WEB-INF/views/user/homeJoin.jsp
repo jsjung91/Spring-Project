@@ -11,7 +11,7 @@
 		$("#join_btn").on("click", function(){
 			if(fieldNullCheck('member_join') == true && $("#member_pwd").val() != "비밀번호" && $("#member_id").val() != "아이디" && $("#member_name").val() != "이름" && $("#member_mail").val() != "이메일" && $("#member_phon").val() != "핸드폰"){
 				var sendData = JSON.stringify({member_id:$("#member_id").val(), member_pwd : $("#member_pwd").val(), member_name : $("#member_name").val(), member_mail : $("#member_mail").val(), member_phon : $("#member_phon").val() });
-				alert("sendData : " + sendData);
+				
 				$.ajax({
 					type:"POST",
 					url:"<c:url value='/join/memberInsert.do'/>",

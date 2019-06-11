@@ -17,5 +17,6 @@
 <%@ page import="javax.servlet.http.*" %>
 <c:set var="contextPath" value="<%= request.getContextPath()%>"></c:set>
 
-<script src="<c:url value='/resources/js/common.js'/>" charset="utf-8"></script>
 <script src="<c:url value='/resources/js/jquery-1.7.2.min.js'/>" charset="utf-8"></script>
+<script src="<c:url value='/resources/js/common.js'/>" charset="utf-8"></script>
+<script src="//developers.kakao.com/sdk/js/kakao.min.js" charset="utf-8"></script>

@@ -17,6 +17,7 @@
 <!-- 		<intercept-url pattern="/resources/**" access="permitAll"/> -->
  		<intercept-url pattern="/board/*.do" access="hasAnyRole('ROLE_USER','ROLE_ADMIN','ROLE_GUEST')"/>
 		<intercept-url pattern="/join/**/*.do" access="permitAll"/>
+		<intercept-url pattern="/kakao/**/*.do" access="permitAll"/>
  		<intercept-url pattern="/admin/**/*.do" access="hasAnyRole('ROLE_ADMIN','ROLE_USER')"/>
 		<intercept-url pattern="/join/login.do" access="permitAll"/>
 		<intercept-url pattern="/**" access="hasAnyRole('ROLE_USER','ROLE_ADMIN','ROLE_GUEST')"/>

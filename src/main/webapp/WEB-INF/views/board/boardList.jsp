@@ -164,16 +164,16 @@ $(document).ready(function(){
 });
 	
 	function fn_boardWrite(){		
-		var comSubmit = new ComSubmit();
-		comSubmit.setUrl("<c:url value='/board/boardInsertForm.do'/>");
-		comSubmit.submit();
+		var fmSubmit = new FmSubmit();
+		fmSubmit.setUrl("<c:url value='/board/boardInsertForm.do'/>");
+		fmSubmit.submit();
 	}
 	
 	function fn_boardDetail(val){
-		var comSubmit = new ComSubmit();		
-		comSubmit.setUrl("<c:url value='/board/boardDetail.do'/>");
-		comSubmit.addParam("bno",val.parent().find("#bno").val());
-		comSubmit.submit();
+		var fmSubmit = new FmSubmit();		
+		fmSubmit.setUrl("<c:url value='/board/boardDetail.do'/>");
+		fmSubmit.addParam("bno",val.parent().find("#bno").val());
+		fmSubmit.submit();
 	} 
 	
 /* 	function fn_PageSearch(pageNo){

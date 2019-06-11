@@ -8,7 +8,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import jeong.menu.Menu;
 import jeong.menu.MenuDao;
-import jeong.menu.MenuVo;
 
 public class MemberDetailService implements UserDetailsService{
 

@@ -1,5 +1,6 @@
 package jeong.common.common;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -20,4 +21,10 @@ public class CommonServiceImple implements CommonService{
 	public Map<String, Object> selectFileInfo(Map<String, Object> map) throws Exception {
 		return commonDao.selectFileInfo(map);
 	}
+	
+	@Override
+	public List<Map<String, Object>> selectCommonCode(Map<String, Object> map) throws Exception {
+	    return commonDao.selectCommonCode(map);
+	}
+	
 }

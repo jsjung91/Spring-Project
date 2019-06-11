@@ -1,10 +1,14 @@
 package jeong.login;
 
+import jeong.member.MemberVo;
+
 public interface LoginService {
 
 	public MemberDetail checkMemberId(String memberid) throws Exception;
 	
 	public int checkMemberIdCnt(String memberid) throws Exception;
+	
+	public MemberVo checkKakaoMember(MemberDetail memberDetail) throws Exception;
 	
 	void countFailure(String memberid) throws Exception;
 	

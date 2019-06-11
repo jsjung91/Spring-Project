@@ -48,11 +48,11 @@ public class CommonController {
 		response.getOutputStream().close();
 	}
 	
-	//@RequestMapping(value="/selectCommonCode.do", method = RequestMethod.POST)
-	//@ResponseBody
-	//public List<Map<String,Object>> selectCommonCode(@RequestBody Map<String, Object> map) throws Exception {
-		//List<Map<String, Object>> list = commonService.selectCommonCode(map);
+	@RequestMapping(value="/selectCommonCode.do", method = RequestMethod.POST)
+	@ResponseBody
+	public List<Map<String,Object>> selectCommonCode(@RequestBody Map<String, Object> map) throws Exception {
+		List<Map<String, Object>> list = commonService.selectCommonCode(map);
 		
-		//return list;
-	//}
+		return list;
+	}
 }

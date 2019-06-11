@@ -29,7 +29,40 @@
 			form_submit();
 		});
 		
+		$("#kakoAuth").on("click", function(){
+			kakaoAuth("join");
+		});
+		
+		$("#kakaoMember").on("click", function(){
+			kakaoAuth("login");
+		});
+		
+		// 로그아웃
+		$("#kakaoLogout").on("click",function(){ Kakao.Auth.logout(function(){ }); });
+		
+		// 연결상태
+		$("#kakaoStatus").on("click",function(){ Kakao.Auth.getStatus(function(statusObj){ });});
+
+		// 앱연결 해제
+		$("#kakaoDrop").on("click",function(){ 
+			Kakao.Auth.login({ persistAccessToken: true, persistRefreshToken: true, success: function(authObj) { kakaoDrop(authObj.access_token); }, fail: function(err) { console.log(err); } }); 
+			
+		});
+		
 	});
+	
+	function kakaoAuth(state){
+		var url = "https://kauth.kakao.com/oauth/authorize?client_id=${kakaoRestApi}&redirect_uri=${kakaoRdUrl }&response_type=code&state="+state+"&encode_state=true";
+		var popOption = "width=460px, height=608px, resizable=yes, scrollbars=no, location=no, top=300px, left=300px;"
+		window.open(url, "카카오톡", popOption);
+	}
+	
+	function kakaoLogin(member) {
+		$("#loginid").prop("type", "password").val(member.id);
+		$("#loginpwd").prop("type", "password").val(member.id);
+		
+		form_submit();
+	}
 	
 	function form_submit(){
 		$("#login_member").submit();
@@ -72,6 +105,7 @@
 				</div>
 			</form>
 				<button id="login_btn" class="btn btn-default btn-block">로그인</button>
+				<a href="javascript:;" id="kakoMember" class="login_btn"><img src="<c:url value='/resources/img/kakao_account_login_btn.png'/>" alt="카카오톡으로 시작하기"/></a>
 				<button id="register_btn" onclick="fn_register('join');" class="btn btn-default btn-block">회원가입</button>						
 		</div>
 	</div>

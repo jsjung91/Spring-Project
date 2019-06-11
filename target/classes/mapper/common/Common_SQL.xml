@@ -30,4 +30,18 @@
 		where
 		 	seq_code = #{seq_code}
 	</update>
+	
+	<!-- SELECT 공통 코드 조회 -->
+      <select id="selectCommonCode" parameterType="hashmap" resultType="hashmap">
+      	<![CDATA[
+			SELECT
+		 		A.CODE, A.CODE_NAME, B.VAR_CODE, B.VAR_NAME, A.USE_YN
+			FROM COMMON_CODE A, COMMON_CODE_DETAIL B
+			WHERE 1=1 
+        	AND A.CODE = B.CODE
+				AND A.CODE = #{code} 
+				AND A.USE_YN = 'Y'
+			ORDER BY CODE_ORDER ASC
+   		]]>
+    </select>
 </mapper>
