@@ -41,12 +41,8 @@ public class AdminServiceImpl implements AdminService{
 	
 	@Override
 	public int adminMemberInfoUpdate(MemberVo user) throws Exception {
-		// TODO Auto-generated method stub
 		int result = 0;
 
-		if(!user.getMember_pwd().equals(user.getMember_pwd_cur())){
-			user.setMember_pwd(passwordEncoder.encode(user.getMember_pwd()));
-		}
 		if(user.getStatus().equals("insert")){
 			//commonDao.updateSeq("MEMBER_NO");
 			//int member_no = commonDao.selectSeq("MEMBER_NO");
@@ -57,12 +53,13 @@ public class AdminServiceImpl implements AdminService{
 		}
 
 		if(user.getStatus().equals("update")){
+			if(!user.getMember_pwd().equals(user.getMember_pwd_cur())){
+				user.setMember_pwd(passwordEncoder.encode(user.getMember_pwd()));
+			}
 			adminDao.adminMemberInfoUpdate(user);
 			adminDao.adminMemberDetailInfoUpdate(user);
 			result = 2;
 		}
-
-		//System.out.println("Data : " + result);
 
 		return result;
 	}

@@ -91,18 +91,18 @@
 	});
 	
 	function fn_boardList(){		
-		var comSubmit = new ComSubmit();
-		comSubmit.setUrl("<c:url value='/board/boardList.do'/>");
-		comSubmit.submit();
+		var fmSubmit = new FmSubmit();
+		fmSubmit.setUrl("<c:url value='/board/boardList.do'/>");
+		fmSubmit.submit();
 	}
 	
 	function fn_boardUpdate(){
 		var idx = "${ map.bno }";
 		$("#frm")[0].reset();
-		var comSubmit = new ComSubmit();
-		comSubmit.setUrl("<c:url value='/board/boardUpdateForm.do'/>");
-		comSubmit.addParam("bno", idx);
-		comSubmit.submit();
+		var fmSubmit = new FmSubmit("frm");
+		fmSubmit.setUrl("<c:url value='/board/boardUpdateForm.do'/>");
+		fmSubmit.addParam("bno", idx);
+		fmSubmit.submit();
 	}
 	
 	function fn_fileDownload(obj){

@@ -184,4 +184,19 @@
 		USE_YN = 'N'
 	WHERE MEMBER_ID = #{member_id}
 </update>
+
+<select id="selMemberNo" parameterType="jeong.member.MemberVo" resultType="jeong.member.MemberVo">
+	SELECT
+		A.MEMBER_ID,
+		A.MEMBER_NAME,
+		A.MEMBER_NO,
+		A.MEMBER_PWD,
+		A.MEMBER_ROLE,
+		A.MEMBER_TYPE,
+		B.USE_YN
+	FROM USER_INFO A, USER_INFO_DETAIL B
+	WHERE 1=1
+	AND A.MEMBER_ID = B.MEMBER_ID
+	AND A.MEMBER_ID = #{member_id}
+</select>
 </mapper>

@@ -16,7 +16,6 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import jeong.common.paging.Paging;
-import jeong.login.MemberDetail;
 
 @Controller
 @RequestMapping("/board")
@@ -34,14 +33,14 @@ public class BoardController {
 									@RequestParam(value="searchText", defaultValue="")String searchText) throws Exception {	
 		// 전체 게시물 레코드의 갯수
 		int count = boardService.boardListGetCount(searchType, searchText);
-
+		
 		Paging page = new Paging(count, curPage);
 		// 현재 페이지 번호
 		int start = page.getPageBegin();
 		// 현재 페이지 끝 번호
 		int end = page.getPageEnd();
 		
-		List<Map<String, Object>> list = boardService.selectBoardList(commandMap, start, end, searchType, searchText);
+		List<Map<String, Object>> list = boardService.selectBoardList(commandMap, start, end, searchType, searchText);		
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		
@@ -68,16 +67,16 @@ public class BoardController {
 	public ModelAndView boardInsert(MultipartHttpServletRequest request, BoardVo boardVo, BoardFileVo fileVo) throws Exception {
 		ModelAndView mv = new ModelAndView("redirect:/board/boardList.do");
 		
-		mv.addObject("menu_id", request.getParameter("menu_id"));
+		//mv.addObject("menu_id", request.getParameter("menu_id"));
 		
-		MemberDetail user = (MemberDetail) request.getAttribute("user");
+		//MemberDetail user = (MemberDetail) request.getAttribute("user");
 		
-		String regid = user.getMember_id();
+		//String regid = user.getMember_id();
 		
-		boardVo.setRegid(regid);
-		boardVo.setModid(regid);
+		//boardVo.setRegid(regid);
+		//boardVo.setModid(regid);
 		
-		fileVo.setRegid(regid);
+		//fileVo.setRegid(regid);
 		
 		boardService.boardInsert(boardVo, fileVo, request);
 		
@@ -90,12 +89,12 @@ public class BoardController {
 		
 		Map<String, Object> map = boardService.boardDetail(boardVo, fileVo);
 		
-		MemberDetail user = (MemberDetail) request.getAttribute("user");
+		//MemberDetail user = (MemberDetail) request.getAttribute("user");
 		
-		String regid = user.getMember_id();
+		//String regid = user.getMember_id();
 		
 		mv.addObject("map", map.get("map")); //게시물 정보
-		mv.addObject("loginId", regid); // 사용자 아이디 정보
+		//mv.addObject("loginId", regid); //사용자 아이디 정보
 		mv.addObject("list", map.get("list")); //게시물 파일 정보
 		
 		return mv;

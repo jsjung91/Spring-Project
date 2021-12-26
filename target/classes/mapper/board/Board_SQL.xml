@@ -69,8 +69,8 @@
  	</select>
  	
  	<insert id="boardInsert" parameterType="jeong.board.BoardVo" useGeneratedKeys="true" keyProperty="bno">
- 	insert into board(bno, subject, content, writer, reg_date, hit,del_gb,crea_id) values
-        (#{bno},#{subject},#{content},#{writer},now(),0,'N','Admin')
+ 		insert into board(bno, subject, content, writer, reg_date, hit,del_gb,crea_id) values
+        				(#{bno},#{subject},#{content},#{writer},now(),0,'N','Admin')
  	</insert>
  	
  	<update id="updateHitCnt" parameterType="jeong.board.BoardVo">
@@ -83,7 +83,7 @@
  	
  	<insert id="fileInsert" parameterType="jeong.board.BoardFileVo">
  		insert into board_file(f_idx, bno, ori_file_name, stored_file_name, file_size, reg_id, fileext) values
- 		(#{f_idx}, #{bno}, #{ori_file_name}, #{stored_file_name}, #{file_size}, #{reg_id}, #{fileext}) 		
+ 						(#{f_idx}, #{bno}, #{ori_file_name}, #{stored_file_name}, #{file_size}, #{reg_id}, #{fileext}) 		
  	</insert>
  	
  	<update id="boardUpdate" parameterType="jeong.board.BoardVo">

@@ -21,8 +21,8 @@
 					success : function(data, status, xhr){
 						if(data == 1){
 							alert("회원 가입이 완료 되었습니다.");
-							self.close();							
-						}						
+							self.close();
+							}						
 					},
 					error : function(jqXHR, textStatus, errorThrown){						
 						alert("실패 : " + jqXHR.responseText);
