@@ -15,7 +15,7 @@ public class LoggerAspect {
 	
 	@Around("execution(* jeong..*Controller..*(..)) or execution(* jeong..*lmple.*(..)) or execution(* jeong..*Dao.*(..))")
 	public Object logPrint(ProceedingJoinPoint joinPoint) throws Throwable {
-		type = joinPoint.getSignature().getDeclaringTypeName(); // 
+		type = joinPoint.getSignature().getDeclaringTypeName(); // 해당 메소드의 클래스 이름 
 		
 		if(type.indexOf("Controller") > -1) {
 			name = "Controller  \t:  ";
